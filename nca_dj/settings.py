@@ -19,8 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*8f8z#b&sf!0ck_-h)bvv*^($#ep8pyhinhk5n=jssr*vyubm9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
@@ -52,7 +51,7 @@ ROOT_URLCONF = 'nca_dj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['nca_dj/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
