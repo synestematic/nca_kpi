@@ -50,7 +50,7 @@ ROOT_URLCONF = 'nca_dj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['nca_dj/templates'],
+        'DIRS': [BASE_DIR + '/nca_dj/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
