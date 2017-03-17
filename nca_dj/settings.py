@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'inventory',
 	'kpi',
 ]
 
@@ -78,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '10.4.4.205',
-        'NAME': 'prova',
+        'NAME': 'nca_kpi',
         'USER': 'mysql_user',
         # 'PASSWORD': 'q1w2e3r4',
         'PORT': '3306',
@@ -123,4 +122,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+# this one tells django where it should get static files from
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'nca_dj', 'static'),
+)
+# this one is used to create url links within the project itself
 STATIC_URL = '/static/'

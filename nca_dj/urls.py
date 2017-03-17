@@ -15,11 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from inventory import views
-
+from kpi import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^item/(?P<id>\d+)/', views.item_detail, name='item_detail'),
+    url(r'^$', views.week_detail, name='week_url_name'),
+    url(r'^day/(?P<day>\d{4}-\d{2}-\d{2})/', views.day_detail, name='day_url_name'),
     url(r'^admin/', admin.site.urls),
 ]
