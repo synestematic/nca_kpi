@@ -1,3 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'week_url_name' %}"> Go Back to this Week </a><br><br>
 <table>
   <tr>
     <th>KPI
@@ -18,3 +22,4 @@
     </td>
   </tr>
 </table>
+{% endblock content %}

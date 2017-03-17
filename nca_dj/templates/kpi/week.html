@@ -1,20 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <table>
   <tr>
-    <th>KPI
-    </th>
-    <th>WEEK
-    </th>
+    <th>DATE</th>
+    <th>Incoming Calls</th>
   </tr>
+
+{% for day in days %}
   <tr>
-    <td>12
-    </td>
-    <td>ab
-    </td>
+    <td> <a href=" {% url 'day_url_name' day.date %} "> {{ day.date }} </a> </td>
+    <td class="foo"> {{ day.incomingCalls | capfirst }} </td>
   </tr>
-  <tr>
-    <td>09
-    </td>
-    <td>xyz
-    </td>
-  </tr>
+{% endfor %}
+
 </table>
+{% endblock content %}
