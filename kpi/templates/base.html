@@ -1,0 +1,64 @@
+{% load staticfiles %} <!-- this will make the static tag available throughout the project -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="it" class="no-js">
+
+ <head>
+  <meta charset="UTF-8">
+  {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
+
+  {% block reloader %}{% endblock reloader %}
+
+  <meta name="description" content="NCA.it Key Performance Indicators">
+  <meta name="author" content="Federico Rizzo">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  {# <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset --> #}
+  {# <link rel="stylesheet" href="css/style.css"> <!-- Resource style --> #}
+  {# <script src="js/modernizr.js"></script> <!-- Modernizr --> #}
+  <title>{{ title }} KPI's | NCA.it</title>
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+<header>
+  <!-- <a href="https://www.auto1.com/it/"><img src="images/logo-small.png" alt="" align="left"></a> -->
+  <img src="{% static 'logo_small.png' %}" alt="" align="left">
+  <h1><b>Key Performance Indicator: {{ title }} Calls</b></h1>
+</header>
+<nav></nav> <!-- orange line -->
+    {% block month_content %}
+    {% endblock month_content %}
+    {% block week_content %}
+    {% endblock week_content %}
+    {% block day_content %}
+    {% endblock day_content %}
+  <br>
+  <ul><small>
+    <li>Le chiamate VELOCI devono essere risposte entro 35 secondi. Le relative percentuali sono calcolate in base alle chiamate effettivamente ricevute.</li>
+    <li>IMPAZIENTI sono quelli che abbandonano la coda prima di 15 secondi. Non vengono considerati tra le chiamate senza risposta.</li>
+    <li>SODDISFATTI sono quelli che abbandonano la coda dopo aver ascoltato le istruzioni dell'IVR. Non vengono considerati tra le chiamate senza risposta.</li>
+    <br>
+
+    {# <li>RICEVUTE: Rosso &lt{{ ans_lower_th | floatformat:"0"}}% | Verde &gt{{ ans_upper_th | floatformat:"0"}}%</li> #}
+
+
+
+    <li>For Answered calls Red is less than {{ ans_lower_th | floatformat:"0"}}% and Green is more than {{ ans_upper_th | floatformat:"0"}}%</li>
+    <li>For Fast calls Red is less than {{ fast_lower_th | floatformat:"0"}}% and Green is more than {{ fast_upper_th | floatformat:"0"}}%</li>
+    <li>Medie di Connessione calcolate solo sulle chiamate risposte.</li>
+  </ul></small>
+
+  <footer>
+    {# <h1>Domande? Auto1.com Servizio Clienti <a href="tel:00390294751066">+39 02 9475 1066</a></h1> #}
+    {# <h3>Copyright Auto1.com</h3> #}
+  </footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

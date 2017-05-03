@@ -1,5 +1,4 @@
-"""nca_dj URL Configuration
-
+"""
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
 Examples:
@@ -15,10 +14,21 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from kpi import views
+from kpi import views as kpi_views
+from data_analyst import views as data_views
 
 urlpatterns = [
-    url(r'^$', views.week_detail, name='week_url_name'),
-    url(r'^day/(?P<day>\d{4}-\d{2}-\d{2})/', views.day_detail, name='day_url_name'),
     url(r'^admin/', admin.site.urls),
+    url(r'^$', kpi_views.aftersales),
+    url(r'^aftersales$', kpi_views.aftersales),
+    url(r'^bookingcenter$', kpi_views.bookingcenter),
+    url(r'^log$', kpi_views.log_stats),
+    url(r'^aftersales/(?P<day>\d{4}-\d{2}-\d{2})$', kpi_views.day_detail, name='day_url_name'),
+    url(r'^d3$', data_views.d3),
 ]
+
+    # r'string' denotes a raw_string to python: dont interpret backslashes
+    # ^         caret denotes start of the string
+    # $         dollar denotes end of the string
+    # ()        parentheses capture unicode strings to pass to the view
+    # ?P<day>   sets day as the unique parameter name that will be accepted by the referenced view
