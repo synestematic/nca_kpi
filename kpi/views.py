@@ -9,7 +9,7 @@ import decimal
 import MySQLdb, datetime
 
 def calculate_last_thirty_days(selected_stats):
-    thirty_days_objects = selected_stats.objects.using('mysql').order_by('-date').exclude( date__lt= date.today() - timedelta(days=31) ).filter()
+    thirty_days_objects = selected_stats.objects.using('portale_nca_kpi_mysql').order_by('-date').exclude( date__lt= date.today() - timedelta(days=31) ).filter()
     thirty_days_object = selected_stats()
     for day in thirty_days_objects:
         thirty_days_object.last_date = day.date
@@ -36,7 +36,7 @@ def calculate_last_thirty_days(selected_stats):
     return thirty_days_object
 
 def calculate_last_five_days(selected_stats):
-    five_days_objects = selected_stats.objects.using('mysql').order_by('date').exclude(date__lt= date.today() - timedelta(days=6) ).filter()
+    five_days_objects = selected_stats.objects.using('portale_nca_kpi_mysql').order_by('date').exclude(date__lt= date.today() - timedelta(days=6) ).filter()
     for day in five_days_objects:
         try:
             day.answered_as_percentage = round((day.answered_calls / day.incoming_calls) * 100 , 1)
@@ -48,7 +48,7 @@ def calculate_last_five_days(selected_stats):
 
 def calculate_day(selected_stats, day):
     try:
-        day_object = selected_stats.objects.using('mysql').filter().get(date=day)
+        day_object = selected_stats.objects.using('portale_nca_kpi_mysql').filter().get(date=day)
         day_object.answered_as_percentage = round((day_object.answered_calls / day_object.incoming_calls) * 100 , 1)
         day_object.fast_as_percentage = round((day_object.fast_calls / day_object.answered_calls) * 100, 1)
     except selected_stats.DoesNotExist:
@@ -128,7 +128,7 @@ def log_stats(request):
             stats.ivr_average_duration = 15
             stats.abandoned_soon_calls = day_stats['abandoned_soon_calls_amount']
             stats.satisfied_calls = day_stats['satisfied_calls_amount']
-            stats.save(using='mysql')
+            stats.save(using='portale_nca_kpi_mysql')
             print('Stats logged...')
 
         return HttpResponse( str(datetime.datetime.utcnow().replace(tzinfo=timezone.utc)) )
@@ -142,47 +142,47 @@ def get_day_stats(date_string):
     date_string = '\''+date_string+'\'' # '2017-03-01'
 
     import MySQLdb
-    nca_db = MySQLdb.connect(host="10.4.4.205", user="natterbox", db="nca")
+    nca_db = MySQLdb.connect(host="10.4.4.205", user="django", db="nca")
     nca_cur = nca_db.cursor()
 
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string
     )
     incoming_calls_amount = nca_cur.rowcount
      
     ###############################################################
     # log unanswered_calls without taking into account people who abandon the queu too soon and peapole who leave after listening to extension2 information and hangup
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0 AND tempo_squillo < 15"
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0 AND tempo_squillo < 15"
     )
     abandoned_soon_calls_amount = nca_cur.rowcount
 
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0 AND tempo_squillo >= 15 AND tempo_squillo < 30 AND estensione = 2"
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0 AND tempo_squillo >= 15 AND tempo_squillo < 30 AND estensione = 2"
     )
     satisfied_calls_amount = nca_cur.rowcount
 
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0"
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso = 0"
     )
     # unanswered_calls_amount = nca_cur.rowcount
     unanswered_calls_amount = nca_cur.rowcount - ( satisfied_calls_amount + abandoned_soon_calls_amount )
     ################################################################
 
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
     )
     answered_calls_amount = nca_cur.rowcount
 
     nca_cur.execute(
-        r"SELECT id FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0 AND tempo_squillo < 35"
+        r"SELECT id FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0 AND tempo_squillo < 35"
     )
     fast_calls_amount = nca_cur.rowcount
 
     if answered_calls_amount > 0:
         ############# AVERAGE CONNECTED TIME #############
         nca_cur.execute(
-            r"SELECT tempo_connesso FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
+            r"SELECT tempo_connesso FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
         )
         total_connection_time = sum( int( row[0] ) for row in nca_cur.fetchall() )
 
@@ -191,7 +191,7 @@ def get_day_stats(date_string):
 
         ############ AVERAGE WAIT TIME #############
         nca_cur.execute(
-            r"SELECT tempo_squillo FROM chiamate_ops WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
+            r"SELECT tempo_squillo FROM chiamate_as WHERE tipo_connessione LIKE '%inbound%' AND data_chiamata = " + date_string + " AND tempo_connesso > 0"
         )
         total_wait_time = 0
         for row in nca_cur.fetchall():
@@ -221,7 +221,5 @@ def get_day_stats(date_string):
         'total_connection_time': total_connection_time,
         'total_wait_time': total_wait_time,
 
-        # 'ops',
-        # 15,
     }
 
