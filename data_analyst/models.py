@@ -1,9 +1,12 @@
 # from django.db import models
 from pymongo import MongoClient
 
+MONGO_HOST = 'mongodb://localhost:27017/'
+MONGO_DB = 'bi'
+
 class Document:
-	def __init__(self):
-		pass
+	def __init__(self, coll_name):
+		self.collection_name = coll_name
 
 	def set_fields(self, **kwargs):
 		for k in kwargs:
@@ -16,23 +19,25 @@ class Document:
 		return getattr(self, k, '"{}" field NOT Found'.format(k))
 
 	def get_fields(self):
-		return self.__dict__.items()
+		return sorted(self.__dict__.items())
 
 	def get_field_keys(self):
-		return self.__dict__.keys()
+		return sorted(self.__dict__.keys())
 
 	def get_field_values(self):
 		return self.__dict__.values()
 
-def get_mongoDb_collection(conn, db, col):
-	mongodb_connection = MongoClient(conn)
-	database = mongodb_connection[db]
+
+
+def get_mongoDb_collection(col):
+	mongodb_connection = MongoClient(MONGO_HOST)
+	database = mongodb_connection[MONGO_DB]
 	collection = database[col]
 	return collection
 
-def create_object_dict_from_documents(db, col):
-	sales_collection = get_mongoDb_collection('mongodb://localhost:27017/', db, col)
-	documents = sales_collection.find( {} )
+def create_object_dict_from_documents(col):
+	selected_collection = get_mongoDb_collection(col)
+	documents = selected_collection.find( {} )
 	# print ('Found Documents: {}'.format(documents.count()))
 
 	instance_dict = {}
@@ -40,12 +45,30 @@ def create_object_dict_from_documents(db, col):
 	for document in documents:
 		# print('+++++++++++++++++++ Creating instance[{}] +++++++++++++++++++'.format(i))
 		# print(type(document))
-		instance_dict[i] = Document()  # create an object in instance_dict for each document
+		instance_dict[i] = Document(col)  # create an object in instance_dict for each document
 		instance_dict[i].set_fields(**document)
 		# pprint.pprint(instance_dict[i].__dict__)
 		i += 1
 	return instance_dict
 
-# returns a dict with objects
-it_yesterday_sold_cars_objects = create_object_dict_from_documents('bi', 'it_yesterday_sold_cars')
-sales_data_objects = create_object_dict_from_documents('bi', 'sales_data')
+def find(col, value):
+	selected_collection = get_mongoDb_collection(col)
+	result = selected_collection.find_one( { "stock_number": value } )
+	print(result)
+
+# do i really need to always have an array with all objects at hand
+yesterday_sold_cars_objects = create_object_dict_from_documents('yesterday_sold_cars')
+sales_data_objects = create_object_dict_from_documents('sales_data')
+merchant_debt_status_objects = create_object_dict_from_documents('merchant_debt_status')
+
+if __name__ == '__main__' :
+	from termcolor import cprint, colored
+	# print(sales_data_objects[4].get_fields())
+	# print(yesterday_sold_cars_objects[4].get_field_values())
+	# find('yesterday_sold_cars', 'YF02158')
+
+	# bar = Collection('yesterday_sold_cars', MONGO_DB)
+	# # print(bar.__dict__)
+	# # print(type(bar))
+
+	# bar.find( {} )

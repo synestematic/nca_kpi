@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from data_analyst.models import sales_data_objects, it_yesterday_sold_cars_objects
+from data_analyst.models import sales_data_objects, yesterday_sold_cars_objects
 from django.http import HttpResponse
 
 def list_field(dict, field):
@@ -15,10 +15,10 @@ def find_object_by_field(dict, column, value):
 
 def d3(request):
 	sales_data_objects_amount = len(sales_data_objects)
-	it_yesterday_sold_cars_objects_amount = len(it_yesterday_sold_cars_objects)
+	yesterday_sold_cars_objects_amount = len(yesterday_sold_cars_objects)
 	foo = sales_data_objects.get(8).get_field('buy_price')
-	companies = list_field(it_yesterday_sold_cars_objects, 'company')
-	# result_object = find_object_by_field(it_yesterday_sold_cars_objects, 'company', 'Ferrari Auto Srl')
+	companies = list_field(yesterday_sold_cars_objects, 'company')
+	# result_object = find_object_by_field(yesterday_sold_cars_objects, 'company', 'Ferrari Auto Srl')
 	result_object = find_object_by_field(sales_data_objects, 'Salesrep_Assigned', 'Account Pool - IT')
 
 	return render(request, 'kpi/d3.html', {
