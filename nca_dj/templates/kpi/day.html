@@ -1,0 +1,51 @@
+{% extends 'kpi/base.html' %}
+{% block day_content %}
+<div class="kpi_box" id="div3">
+<h2>{{ day.date | date:"l d F o"}}</h2>
+<table>
+  <tr>
+    <th style="text-align: right;">Data:</th><th>{{ day.date | date:"D d F"}}</th>
+    <!--<th style="text-align: right;">Data:</th><th>{{ day.date }}</th>-->
+  </tr>
+  <tr>
+    <td class="field_class" >Ricevute</td><td>{{ day.incoming_calls }}</td>
+  </tr>
+  <tr>
+    <td class="field_class">Risposte</td>
+    {% if day.answered_as_percentage > ans_upper_th %}
+      <td class="over_threshold">
+    {% elif day.answered_as_percentage < ans_lower_th %}
+      <td class="under_threshold">
+    {% else %}
+      <td class="within_threshold">
+    {% endif %}
+    {{ day.answered_as_percentage }} %
+    </td>
+  </tr>
+  <tr>
+    <td class="field_class">Veloce</td>
+    {% if day.fast_as_percentage > fast_upper_th %}
+      <td class="over_threshold">
+    {% elif day.fast_as_percentage < fast_lower_th %}
+      <td class="under_threshold">
+    {% else %}
+      <td class="within_threshold">
+    {% endif %}
+    {{ day.fast_as_percentage }} %
+    </td>
+  </tr>
+  <tr>
+    <td class="field_class">Impazienti</td><td>{{ day.abandoned_soon_calls }}</td>
+  </tr>
+  <tr>
+    <td class="field_class">Soddisfatti</td><td>{{ day.satisfied_calls }}</td>
+  </tr>
+  <tr>
+    <td class="field_class">Media di Connessione</td><td>{{ day.average_connection_time }} <small>secondi</small></td>
+  </tr>
+  <tr>
+    <td class="field_class">Media di Attesa</td><td>{{ day.average_wait_time }} <small>secondi</small></td>
+  </tr>
+</table>
+</div>
+{% endblock day_content %}
