@@ -1,0 +1,98 @@
+* {
+    /*border: 1px solid #999;*/
+    /*height: 100%;*/
+    width: 100%;
+    position:relative;
+}
+
+html {
+    width: 2480px;
+    height: 3508px;
+    border: 1px solid #000;
+}
+body {
+    height: 100%;
+    width: 80%;
+    margin-left: auto; margin-right: auto;
+    font-family: Verdana ;
+    font-size: 48px; line-height: 64px; text-align: left;
+    background: #ffffff;
+    /*border: 1px solid #00F;*/
+}
+
+#img_div {
+    width: 100%;
+    /*border: 1px solid #FF0;*/
+    text-align: right; /* just for the pic within */
+}
+
+#nca_hr_image {
+    /* original measures:*/
+    /*height: 118px;
+    width: 257px;*/
+    height: 236px;
+    width: 514px;
+}
+
+#div_1 {
+    text-align: right;
+    font-size: 40px; line-height: 52px;
+}
+
+#div_2 {
+    margin-top: 200px;
+}
+
+#div_3 {
+    text-align: right;
+    font-weight: bold;
+}
+
+#div_6 {
+    margin-top: 150px;
+    text-align: left;
+    font-weight: bold;
+}
+
+#div_7 {
+    margin-top: 80px;
+}
+
+#div_8 {
+    margin-top: 80px;
+    font-weight: bold;
+}
+
+#div_9 {
+    margin-top: 80px;
+}
+
+#div_10 {
+    font-family: "Times New Roman";
+    font-size: 40px; line-height: 52px;
+    text-align: right;
+}
+
+#pie1, #pie2, #pie3 {
+    /*border: 1px solid #000;*/
+    margin-bottom: 1px;
+    font-size: 35px; line-height: 45px;
+    position: absolute;
+}
+
+#pie1 {
+    width: 50%;
+    bottom:230px;
+}
+
+#pie2 {
+    bottom:50px;
+    width: 90%;
+}
+
+#pie3 {
+    width: 50%;
+    bottom:230px;
+    right: 0;
+    text-align: right;
+}
