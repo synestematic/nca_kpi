@@ -15,6 +15,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from kpi import views as kpi_views
+from human import views as human_views
 from data_analyst import views as data_views
 
 urlpatterns = [
@@ -25,9 +26,14 @@ urlpatterns = [
     url(r'^log$', kpi_views.log_stats),
     url(r'^aftersales/(?P<day>\d{4}-\d{2}-\d{2})$', kpi_views.day_detail, name='day_url_name'),
     url(r'^d3$', data_views.d3),
+
+    url(r'^hr$', human_views.main),
+    url(r'^contestazioni$', human_views.disciplina),
+    url(r'^dipendente(?P<day>\d{4})$', human_views.dipendente, name='day'),
+    url(r'^render_cd$', human_views.render_cd),
 ]
 
-    # r'string' denotes a raw_string to python: dont interpret backslashes
+    # r'string' denotes a raw_string: DO NOT interpret backslashes
     # ^         caret denotes start of the string
     # $         dollar denotes end of the string
     # ()        parentheses capture unicode strings to pass to the view
