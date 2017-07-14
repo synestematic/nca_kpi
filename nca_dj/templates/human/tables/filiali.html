@@ -1,0 +1,16 @@
+<table class="content_table">
+	<tr>
+		<th>ID</th>
+		<th>Filiale</th>
+		<th>Dipendenti</th>
+		<th>Centro di Stoccaggio</th>
+	</tr>
+{% for branch in branches %}
+	<tr>
+		<td>{{ branch.id }}</td>
+		<td>{{ branch.filiale }}</td>
+		<td>{{ branch.user_count }}</td>
+		<td>{{ branch.lc }}</td>
+	</tr>
+{% endfor %}
+</table>

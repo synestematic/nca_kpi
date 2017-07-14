@@ -1,0 +1,14 @@
+<table class="content_table">
+	<tr>
+		<th>Contestazione</th>
+		<th>Dipendente</th>
+		<th>Data</th>
+	</tr>
+{% for contestazione in contestazioni %}
+	<tr>
+		<td>{{ contestazione.id }}</td>
+		<td>{{ contestazione.user }}</td>
+		<td>{{ contestazione.date | date:"D d F"}}</td>
+	</tr>
+{% endfor %}
+</table>

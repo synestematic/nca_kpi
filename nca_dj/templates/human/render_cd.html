@@ -1,0 +1,30 @@
+{# header("Content-Description: File Transfer") #}
+{# header("Content-Transfer-Encoding: binary") #}
+{# header("Content-Disposition:attachment;filename=downloaded.png") #}
+{# header("Content-Type: image/png") #}
+
+{% load staticfiles %} <!-- this will make the static tag available throughout the project -->
+<html lang="it">
+	<head>
+		<title>Contestazione Disciplinare</title>
+		<link rel="stylesheet" href="{% static 'css/render.css' %}" media="all" type="text/css" />
+		<link rel="favicon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+	</head>
+	<body>
+		<div id="img_div"><img id="nca_hr_image" src="{% static 'images/nca_hr.png' %}"></div>
+		<div id="div_1"><b>Noicompriamoauto.it SRL</b><br>Piazzale Luigi Cadorna, 2<br>CAP 20123 - Milano</div>
+		<div id="div_2"><b>Raccomandata A MANO</b><br>{{ date | date:"d.F.y" }}</div>
+		<div id="div_3">Egr. Sig.<br>{{ user.full_name }}<br>{{ user.address }}</div>
+		<div id="div_6">Prot: {{ id }}2017/CD/{{ punisher_id }}/{{ user.id }}<br>Oggetto: contestazione disciplinare</div>
+		<div id="div_7">Ai sensi e per gli effetti di cui all\'art. 7 della legge 300/1970 (Statuto dei Lavoratori) e delle vigenti norme contrattuali Le contestiamo quanto segue:</div>
+
+		<div id="div_8">{{ note }}</div>
+		<div id="div_9">{{ suspend }}<br><br><br>Distinti Saluti</div>
+
+		<div id="div_10"><b>NOI COMPRIAMO AUTO.IT S.r.l.</b><br>Sede Legale: Piazzale Luigi Cadorna n. 2<br>20123 Milano<br><br><br>_______________________________</div>
+
+		<div id="pie1">Noicompriamoauto.it Srl<br>CF e P.IVA 08406540966</div>
+		<div id="pie2">Iscritta presso il Registro delle Imprese di Milano n. MI-2024300<br>Socio Unico Auto1 Group GMBH<br>Cap. Sociale € 10.000<br>NoiCompriamoAuto.it Srl è soggetta a direzione e coordinamento da parte di AUTO1 Group Gmbh</div>
+		<div id="pie3">Sede: Piazzale Cadorna 2 – 20123 Milano<br>Tel: 800 034 650</div>
+	</body>
+</html>

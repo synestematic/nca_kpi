@@ -1,0 +1,56 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="it" class="no-js">
+  <head>
+    <meta charset="UTF-8">
+    {# <meta name="viewport" content="width=device-width, initial-scale=1"> #}
+    <meta name="description" content="NCA.it Key Performance Indicators">
+    <meta name="author" content="Federico Rizzo">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/human.css' %}">
+    <link rel="stylesheet" href="{% static 'css/debug.css' %}">
+
+  </head>
+  <body>
+    <header>
+      <img id="auto1_logo" src="{% static 'images/logo_small.png' %}" alt="" align="left">
+      <h1 id="main_title">Human Resources Admin</h1>
+      {% block section_title %}{% endblock section_title %}
+    </header>
+    <nav></nav>
+    <main>
+      <aside>
+        {% block sidebar %}{% endblock sidebar %}
+        {# a block simply tells the template engine that a child template may override that portion #}
+      </aside>
+      <article>
+        {% block article %}{% endblock article %}
+        <br><br><br><br>
+      </article>
+    </main>
+    <footer>
+      <table id="link_table">
+      {% block footer_links %}
+        <th><a href="hr">Dashboard</a></th>
+        <th><a href="">Presenze</a></th>
+        <th><a href="">Contratti</a></th>
+        <th><a href="contestazioni">Contestazioni</a></th>
+        <th><a href="">Profilo</a></th>
+      {% endblock footer_links %}
+      </table>
+    </footer>
+    <script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+    <script>
+      window.jQuery || document.write('<script src="{% static 'js/jquery-3.2.1.min.js' %}"><\/script>');
+    </script>
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
+

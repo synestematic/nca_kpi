@@ -1,0 +1,16 @@
+<table class="content_table">
+	<tr>
+		<th>Sanzione</th>
+		<th>Contestazione</th>
+		<th>Dipendente</th>
+		<th>Data</th>
+	</tr>
+{% for sanzione in sanzioni %}
+	<tr>
+		<td>{{ sanzione.id }}</td>
+		<td>{{ sanzione.contestazione_id }}</td>
+		<td>{{ sanzione.user }}</td>
+		<td>{{ sanzione.date  | date:"D d F"}}</td>
+	</tr>
+{% endfor %}
+</table>

@@ -1,0 +1,12 @@
+<table class="content_table">
+	<tr>
+		<th>Dipartimento</th>
+		<th>Dipendenti</th>
+	</tr>
+{% for dept in depts %}
+	<tr>
+		<td>{{ dept.reparto }}</td>
+		<td>{{ dept.user_count }}</td>
+	</tr>
+{% endfor %}
+</table>

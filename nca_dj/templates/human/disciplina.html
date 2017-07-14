@@ -1,0 +1,28 @@
+{% extends 'human/base.html' %}
+
+{% block section_title %}
+	<h1 id="section_title">Contestazioni Disciplinari</h1>
+{% endblock section_title %}
+
+{% block sidebar %}
+	<p>Totale Contestazioni: {{ contestazioni_count }}</p>
+	<p>Contestazioni Attive: {{ active_contestazioni }}</p>
+	<p>Totale Sanzioni: {{ sanzioni_count }}</p>
+	<br>
+	<form action="/render_cd" method="post">
+	    {% csrf_token %}
+	    {{ form }}
+
+	{# {% include 'human/dropdowns/dipendenti_dd.html' %} #}
+
+	    <br><br><input type="submit" value="Nuova Contestazione" />
+	</form>
+
+
+{% endblock sidebar %}
+
+{% block article %}
+	{% include 'human/tables/contestazioni.html' %}
+	<br>
+	{% include 'human/tables/sanzioni.html' %}
+{% endblock article %}

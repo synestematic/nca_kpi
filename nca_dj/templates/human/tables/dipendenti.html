@@ -1,0 +1,16 @@
+<table class="content_table">
+	<tr>
+		<th>Dipendente</th>
+		<th>Filiale</th>
+		<th>Dipartimento</th>
+		<th></th>
+	</tr>
+{% for user in users %}
+	<tr class="user_row" id="user{{ user.id }}_row_">
+		<td>{{ user.full_name }}</td>
+		<td>{{ user.branch }}</td>
+		<td>{{ user.dept }}</td>
+		<td></td>
+	</tr>
+{% endfor %}
+</table>

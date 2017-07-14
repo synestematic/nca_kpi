@@ -1,0 +1,5 @@
+ <select name="user_selector">
+	{% for user in users %}
+	<option value="{{ user.id }}">{{ user.full_name }}</option>
+	{% endfor %}
+</select> 
