@@ -100,6 +100,8 @@ def depts(request):
 
 def branches(request):
 
+	# put a new form here
+
 	branches = Branch.find(
 		strict_restrictions={
 			'filiale' : ['Milano HQ'],
