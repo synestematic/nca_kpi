@@ -5,7 +5,7 @@
 	</tr>
 {% for dept in depts %}
 	<tr>
-		<td>{{ dept.reparto }}</td>
+		<td>{{ dept.reparto | capfirst }}</td>
 		<td>{{ dept.user_count }}</td>
 	</tr>
 {% endfor %}

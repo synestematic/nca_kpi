@@ -27,7 +27,11 @@ urlpatterns = [
     url(r'^aftersales/(?P<day>\d{4}-\d{2}-\d{2})$', kpi_views.day_detail, name='day_url_name'),
     url(r'^d3$', data_views.d3),
 
-    url(r'^hr$', human_views.main),
+    url(r'^users$', human_views.users),
+    url(r'^depts$', human_views.depts),
+    url(r'^branches$', human_views.branches),
+    url(r'^lcs$', human_views.lcs),
+
     url(r'^contestazioni$', human_views.disciplina),
     url(r'^dipendente(?P<day>\d{4})$', human_views.dipendente, name='day'),
     url(r'^render_cd$', human_views.render_cd),

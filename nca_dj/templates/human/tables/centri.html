@@ -1,0 +1,12 @@
+<table class="content_table">
+	<tr>
+		<th>Id</th>
+		<th>Centro</th>
+	</tr>
+{% for lc in lcs %}
+	<tr class="lc_row" id="lc{{ lc.id }}_row_">
+		<td>{{ lc.id }}</td>
+		<td>{{ lc.centro }}</td>
+	</tr>
+{% endfor %}
+</table>

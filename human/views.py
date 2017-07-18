@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.utils import timezone
 from django.conf import settings
 
-from human.models import User, Branch, Dept, Contestazione, Sanzione
+from human.models import User, Branch, Dept, Lc, Contestazione, Sanzione
 from human.forms import NewContestazione
 
 import MySQLdb, datetime
@@ -77,30 +77,47 @@ def render_cd(request, *args, **kwargs):
 	else:
 		return HttpResponseRedirect('/contestazioni')
 
+def users(request):
 
-def main(request):
-
-	all_depts = Dept.find()
-	
 	hr_users = User.find(
 		restrictions={
 			'email' : ['.agency@auto1.com', '.branch@auto1.com'],
 		}
 	)
+	return render(request, 'human/users.html', {
+	    'user_count' : len(hr_users),
+	    'users' : hr_users,
+	})
+
+
+def depts(request):
+
+	all_depts = Dept.find()
+	return render(request, 'human/depts.html', {
+	    'dept_count' : len(all_depts),
+	    'depts' : all_depts,
+	})
+
+def branches(request):
+
 	branches = Branch.find(
 		strict_restrictions={
 			'filiale' : ['Milano HQ'],
 		}, order='filiale'
 	)
-
-	return render(request, 'human/hr.html', {
-	    'user_count' : len(hr_users),
-	    'users' : hr_users,
-	    'dept_count' : len(all_depts),
-	    'depts' : all_depts,
+	return render(request, 'human/branches.html', {
 	    'branches' : branches,
 	    'branch_count' : len(branches),
 	})
+
+def lcs(request):
+
+	lcs = Lc.find()
+	return render(request, 'human/lcs.html', {
+	    'lcs' : lcs,
+	    'lc_count' : len(lcs),
+	})
+
 
 def disciplina(request):
 
@@ -117,15 +134,12 @@ def disciplina(request):
 	return render(request, 'human/disciplina.html', {
 		'form': form,
 	    'contestazioni' : contestazioni,
-	    'acive_contestazioni' : 999,
+	    'active_contestazioni' : 999,
 	    'contestazioni_count' : len(contestazioni),
 	    'sanzioni' : sanzioni,
 	    'sanzioni_count' : len(sanzioni),
 	    'users' : hr_users
 	})
-
-
-
 
 def dipendente(request):
 	return redirect(request, 'human/dipendente.html', {
