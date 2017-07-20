@@ -100,16 +100,16 @@ def depts(request):
 
 def branches(request):
 
-	# put a new form here
-
 	branches = Branch.find(
 		strict_restrictions={
 			'filiale' : ['Milano HQ'],
 		}, order='filiale'
 	)
+	lcs = Lc.find()
 	return render(request, 'human/branches.html', {
 	    'branches' : branches,
 	    'branch_count' : len(branches),
+	    'lcs' : lcs,
 	})
 
 def lcs(request):

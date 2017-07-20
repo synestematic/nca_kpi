@@ -5,7 +5,27 @@
 {% endblock section_title %}
 
 {% block sidebar %}
-	<p>Numero di Filiali: {{ branch_count }}</p>
+	<h1>Numero di Filiali: {{ branch_count }}</h1>
+	<br><hr>
+	<form>
+		<h1>Crea una Nuova Filiale:</h1>
+		<table id="new_branch_table">
+			<tr><th>&nbsp</th></tr>
+			<tr>
+				<td>Denominazione:</td>
+				<td><input type="text" value="" /></td>
+			</tr>
+			<tr>
+				<td>Nas Share:</td>
+				<td><input type="text" value="" /></td>
+			</tr>
+			<tr>
+				<td>Centro di Stoccaggio:</td>
+				<td>{% include 'human/dropdowns/centri_dd.html' %}</td>
+			</tr>
+		</table>
+		<br><input type="submit" value="Nuova Filiale" />
+	</form>
 {% endblock sidebar %}
 
 {% block article %}

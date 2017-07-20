@@ -78,6 +78,13 @@ html {
 			overflow-y: auto;
 		}
 
+			main h1 {
+				font-size: 115%;
+				font-weight: bold;
+				font-style: italic;
+			}
+
+
 			aside {
 				position: fixed;
 				float: left;
@@ -87,6 +94,18 @@ html {
 				line-height: 26px;
 			}
 
+				aside #new_branch_table {
+					text-align: left;
+				}
+
+					aside #new_branch_table td {
+						padding: 2px;
+					}
+
+					aside #new_branch_table input {
+						width: 98%;
+					}
+
 			article {
 				/*position: absolute;*/
 				float: right;
@@ -94,14 +113,14 @@ html {
 				/*height: 100%;*/
 			}
 
-				article .content_table {
+				.content_table {
 					text-align: center;
 					width: 80%;
 					border: 3px inset grey;
 					box-shadow: 3px 3px 3px #aaa;
 				}
 
-					article .content_table th {
+					.content_table th {
 						font-size: 110%;
 						/*font-style: italic;*/
 						text-shadow: 1px 1px 2px darkgrey;
@@ -110,14 +129,14 @@ html {
 						background-color: #304f95
 					}
 
-					article .content_table td {
+					.content_table td {
 						padding: 1px;
 						/*border: 3px solid grey; */
 						/*why doesnt chrome show these ?*/
 						background-color: white;
 					}
 
-					article .content_table tr:hover {
+					.content_table tr:hover {
 						color: #ec7d44;
 					}
 

@@ -1,9 +1,11 @@
 <table class="content_table">
 	<tr>
 		<th>ID</th>
-		<th>Filiale</th>
+		<th>Denominazione</th>
 		<th>Dipendenti</th>
 		<th>Centro di Stoccaggio</th>
+		<th>NAS share</th>
+		<th>Numero NB</th>
 	</tr>
 {% for branch in branches %}
 	<tr>
@@ -11,6 +13,8 @@
 		<td>{{ branch.filiale }}</td>
 		<td>{{ branch.user_count }}</td>
 		<td>{{ branch.lc }}</td>
+		<td>{{ branch.nas_share }}</td>
+		<td>{{ branch.nb_number }}</td>
 	</tr>
 {% endfor %}
 </table>
