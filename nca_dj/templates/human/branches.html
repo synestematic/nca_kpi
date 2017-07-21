@@ -6,25 +6,26 @@
 
 {% block sidebar %}
 	<h1>Numero di Filiali: {{ branch_count }}</h1>
-	<br><hr>
-	<form>
-		<h1>Crea una Nuova Filiale:</h1>
+	<hr>
+	<form method="post" action="">
+	    {% csrf_token %}
+		<h1>Crea Nuova Filiale:</h1>
 		<table id="new_branch_table">
 			<tr><th>&nbsp</th></tr>
 			<tr>
 				<td>Denominazione:</td>
-				<td><input type="text" value="" /></td>
+				<td><input type="text" name="denominazione" value="" /></td>
 			</tr>
 			<tr>
 				<td>Nas Share:</td>
-				<td><input type="text" value="" /></td>
+				<td><input type="text" name="nas_share" value="" /></td>
 			</tr>
 			<tr>
 				<td>Centro di Stoccaggio:</td>
 				<td>{% include 'human/dropdowns/centri_dd.html' %}</td>
 			</tr>
 		</table>
-		<br><input type="submit" value="Nuova Filiale" />
+		<br><input type="submit" name="submit" value="Nuova Filiale" />
 	</form>
 {% endblock sidebar %}
 

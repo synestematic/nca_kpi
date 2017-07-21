@@ -36,7 +36,7 @@ def render_cd(request, *args, **kwargs):
 		form = NewContestazione(request.POST)
 		if form.is_valid():
 
-			values = [None, ] # id must be blank so it nows to use CREATE instead of UPDATE
+			values = [None, ] # id must be blank so it knows to use CREATE instead of UPDATE
 			values.append(form.cleaned_data['user_id'])
 			values.append(346) # Turco
 			values.append(datetime.datetime.now())
@@ -100,17 +100,31 @@ def depts(request):
 
 def branches(request):
 
-	branches = Branch.find(
-		strict_restrictions={
-			'filiale' : ['Milano HQ'],
-		}, order='filiale'
-	)
-	lcs = Lc.find()
-	return render(request, 'human/branches.html', {
-	    'branches' : branches,
-	    'branch_count' : len(branches),
-	    'lcs' : lcs,
-	})
+	if request.method == 'POST' and request.POST.get('submit') == 'Nuova Filiale' :
+		# VALIDATE 
+		values = [None, ] # id must be blank so it knows to use CREATE instead of UPDATE
+		values.append(request.POST.get('lc_selector'))
+		values.append(request.POST.get('denominazione'))
+		values.append(None) # nb number
+		values.append(request.POST.get('nas_share'))
+
+		new_branch = Branch(values)
+		new_branch.save()
+
+		return HttpResponseRedirect('/branches')
+	else:
+		branches = Branch.find(
+			strict_restrictions={
+				'filiale' : ['Milano HQ'],
+			}, order='filiale'
+		)
+		lcs = Lc.find()
+
+		return render(request, 'human/branches.html', {
+		    'branches' : branches,
+		    'branch_count' : len(branches),
+		    'lcs' : lcs,
+		})
 
 def lcs(request):
 
@@ -119,7 +133,6 @@ def lcs(request):
 	    'lcs' : lcs,
 	    'lc_count' : len(lcs),
 	})
-
 
 def disciplina(request):
 
